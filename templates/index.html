@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Seminarios</title>
+    <link rel="stylesheet" href="static/styles.css">
+
+    
+</head>
+<body>
+    <h1>Listado de inscritos</h1>
+    <a href="{{ url_for('nuevo') }}" class="btn btn-submit">Nuevo</a>
+    {% if registros %}      
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Turno</th>
+                        <th>Seminarios</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for registro in registros %}
+                    <tr>
+                        <td>{{ registro.id }}</td>
+                        <td>{{ registro.fecha }}</td>
+                        <td>{{ registro.nombre }}</td>
+                        <td>{{ registro.apellidos }}</td>
+                        <td>{{ registro.turno }}</td>
+                        <td>{{ registro.seminarios|join(", ") }}</td>
+                        <td>
+                            <a href="{{ url_for('editar', id=registro.id) }}" class="btn btn-submit">Editar</a>
+                            <form action="{{ url_for('eliminar', id=registro.id) }}" method="POST" style="display: inline;">
+                                <input type="submit" value="Eliminar" class="btn btn-submit">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>     
+    {% else %}
+        <p>Presiona Nuevo</p>
+    {% endif %}
+</body>
+</html>

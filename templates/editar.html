@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Editar Registro</title>
+</head>
+<body>
+        <h1>Editar Registro</h1>
+        <form action="{{ url_for('actualizar', id=registro.id) }}" method="POST">
+            <div class="container">
+                <div>
+                    <table>
+                        <tr>
+                            <th>Fecha:</th>
+                            <td><input type="date" name="fecha" value="{{ registro.fecha }}" required></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Nombre:</td>
+                            <td><input type="text" name="nombre" value="{{ registro.nombre }}" required></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Apellidos:</td>
+                            <td><input type="text" name="apellidos" value="{{ registro.apellidos }}" required></td>
+                        </tr>
+                        <tr>
+                            <td>Turno:</td>
+                            <td>
+                                <input type="radio" name="turno" value="Mañana" {% if registro.turno == 'Mañana' %}checked{% endif %} required> Mañana
+                                <input type="radio" name="turno" value="Tarde" {% if registro.turno == 'Tarde' %}checked{% endif %}> Tarde
+                                <input type="radio" name="turno" value="Noche" {% if registro.turno == 'Noche' %}checked{% endif %}> Noche
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <h5>Seminarios Disponibles</h5>
+                    <div>
+                        <input type="checkbox" name="seminarios" value="Inteligencia Artificial" {% if 'Inteligencia Artificial' in registro.seminarios %}checked{% endif %}> Inteligencia Artificial<br>
+                        <input type="checkbox" name="seminarios" value="Machine Learning" {% if 'Machine Learning' in registro.seminarios %}checked{% endif %}> Machine Learning<br>
+                        <input type="checkbox" name="seminarios" value="Simulación con Arena" {% if 'Simulación con Arena' in registro.seminarios %}checked{% endif %}> Simulación con Arena<br>
+                        <input type="checkbox" name="seminarios" value="Robótica Educativa" {% if 'Robótica Educativa' in registro.seminarios %}checked{% endif %}> Robótica Educativa
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <button type="submit" class="btn btn-submit">Actualizar</button>
+                <a href="{{ url_for('index') }}" class="btn btn-submit">Cancelar</a>
+            </div>
+        </form>
+    
+
+
+</body>
+</html>
